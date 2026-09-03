@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.10'
           cache: 'pipenv'
-          cache-dependency-path: ./starter/backend/Pipfile.lock
+          cache-dependency-path: starter/backend/Pipfile.lock
       - name: Install pipenv
         run: pip install pipenv
       - name: Install dependencies
@@ -41,7 +41,7 @@ jobs:
         with:
           python-version: '3.10'
           cache: 'pipenv'
-          cache-dependency-path: Pipfile.lock
+          cache-dependency-path: starter/backend/Pipfile.lock
       - name: Install pipenv
         run: pip install pipenv
       - name: Install dependencies
@@ -58,6 +58,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pipenv'
+          cache-dependency-path: starter/backend/Pipfile.lock
+      - name: Install dependencies
+        run: pipenv install --dev
       - name: Build Docker image
         run: |
           docker build --tag mp-backend:latest .
